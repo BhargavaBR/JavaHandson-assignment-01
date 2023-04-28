@@ -4,9 +4,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 
-public class Merge {
-    public List<Integer> merge(List<Integer> list1, List<Integer> list2){
+public class Merge implements Callable<List<Integer>> {
+    List<Integer> list1 ;
+    List<Integer> list2 ;
+
+    public Merge(List<Integer> list1, List<Integer> list2) {
+        this.list1 = list1;
+        this.list2 = list2;
+    }
+
+
+    @Override
+    public List<Integer> call() throws Exception {
+        System.out.println("Merge Thread : " + Thread.currentThread().getName());
         List<Integer> result = new ArrayList<Integer>();
         Collections.sort(list1);
         Collections.sort(list2);
