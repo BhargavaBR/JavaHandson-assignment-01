@@ -21,7 +21,7 @@ public class ReadFile  implements Callable<List<Integer>> {
     @Override
     public List<Integer> call() throws Exception {
         list = new ArrayList<Integer>();
-        System.out.println("Read Thread is : "+ Thread.currentThread().getName());
+        System.out.println("Reading on Thread : "+ Thread.currentThread().getName());
         try {
             File file = new File(Path);
             Scanner myReader = new Scanner(file);
