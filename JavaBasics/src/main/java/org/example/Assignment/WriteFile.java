@@ -5,10 +5,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class WriteFile {
+public class WriteFile implements  Runnable{
     //String Path = "/Users/bhargavabr/coding/JavaBasics/Files/output.txt";
+    String Path;
+    List<Integer> list;
 
-    public void createFile(String Path){
+    public WriteFile(String path, List<Integer> list) {
+        Path = path;
+        this.list = list;
+    }
+
+    public WriteFile(String path) {
+        Path = path;
+    }
+
+    public WriteFile() {
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Write Thread is : " + Thread.currentThread().getName());
         try{
             File outputFile = new File(Path);
             if(outputFile.createNewFile()) {
@@ -18,16 +34,18 @@ public class WriteFile {
             System.out.println("Error while creating output file");
             throw new RuntimeException(e);
         }
-    }
-    public void writetoFile(List<Integer> result, String Path) throws IOException {
-        FileWriter fileWriter = new FileWriter(Path);
-        for (Integer line : result) {
-            try {
+        FileWriter fileWriter = null;
+        try{
+            fileWriter = new FileWriter(Path);
+            for (Integer line : list) {
+
                 fileWriter.write(""+line+ System.lineSeparator());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+
             }
+            fileWriter.close();
+        }catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        fileWriter.close();
+
     }
 }
