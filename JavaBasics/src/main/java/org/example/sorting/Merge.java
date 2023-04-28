@@ -18,7 +18,7 @@ public class Merge implements Callable<List<Integer>> {
 
     @Override
     public List<Integer> call() throws Exception {
-        System.out.println("Merge Thread : " + Thread.currentThread().getName());
+        System.out.println("Merging files in Thread : " + Thread.currentThread().getName());
         List<Integer> result = new ArrayList<Integer>();
         Collections.sort(list1);
         Collections.sort(list2);

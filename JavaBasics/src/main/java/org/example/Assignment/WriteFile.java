@@ -24,7 +24,7 @@ public class WriteFile implements  Runnable{
 
     @Override
     public void run() {
-        System.out.println("Write Thread is : " + Thread.currentThread().getName());
+        System.out.println("Writing files in Thread is : " + Thread.currentThread().getName());
         try{
             File outputFile = new File(Path);
             if(outputFile.createNewFile()) {

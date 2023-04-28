@@ -2,10 +2,8 @@ package org.example;
 
 import org.example.Assignment.ReadFile;
 import org.example.Assignment.WriteFile;
-import org.example.http.Client;
 import org.example.sorting.Merge;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +16,7 @@ import java.util.concurrent.Future;
 public class Main {
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
-        System.out.println("Hello world!");
-        //Client client = new Client();
-
-
+        System.out.println("Hi, I can merge any number of Files to one File");
 
         String basePath = "/Users/bhargavabr/coding/JavaBasics/Files";
 
@@ -35,26 +30,23 @@ public class Main {
             System.out.println("Enter file to merge");
             String filePath = scan.next();
             ReadFile readFile = new ReadFile(basePath + "/" + filePath+".txt");
+
             Future<List<Integer>> readList = executor.submit(readFile);
-            try {
-                list = readList.get();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("file size : " + list.size());
+            list = readList.get();
+
             Merge m = new Merge(res, list);
             Future<List<Integer>> mergeFuture = executor.submit(m);
             res = mergeFuture.get();
-            System.out.println("File sizez after merge : " + res.size());
+
         }
-        
+
         System.out.println("Enter output file to store results");
         String outputPath = scan.next();
         outputPath = basePath + "/" +outputPath+ ".txt";
+
         WriteFile writeFile = new WriteFile(outputPath,res);
         executor.submit(writeFile);
+
         executor.shutdown();
     }
 }
